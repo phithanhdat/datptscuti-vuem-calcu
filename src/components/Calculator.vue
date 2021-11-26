@@ -37,7 +37,7 @@ import {
   postFixEvaluation,
   infixtoPostfix,
   tokenizer,
-  strip
+  strip,
 } from "../utils/computer.js";
 // import { Stack } from "../utils/Stack.js";
 export default {
@@ -65,7 +65,7 @@ export default {
   methods: {
     clear() {
       this.current = "0";
-      this.isResult = false
+      this.isResult = false;
     },
 
     sign() {
@@ -73,8 +73,13 @@ export default {
       if (this.current.charAt(0) === "-") {
         this.current = this.current.slice(1);
       } else {
-        this.current = `-${this.current}`;
+        if (isNaN(this.current)) {
+          this.current = `-(${this.current})`;
+        } else {
+          this.current = `-${this.current}`;
+        }
       }
+      this.isResult = false
     },
 
     percent() {
@@ -83,8 +88,8 @@ export default {
     },
 
     _onChange() {
-      console.log("on change -->"+this.current);
-    //  console.log(this.current);
+      console.log("on change -->" + this.current);
+      //  console.log(this.current);
     },
 
     numClick(val) {
